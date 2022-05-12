@@ -1,6 +1,7 @@
 import React from 'react';
 import Data_table from './Data_table.js';
 import _ from 'lodash';
+import { isValidDate, sortDates } from './utils.js';
 
 export default class Input_form extends React.Component {
   constructor(props) {
@@ -51,13 +52,15 @@ export default class Input_form extends React.Component {
 
   render() {
     const { form, dataTable } = this.state;
-
+    console.log(dataTable);
+    const sortedDates = sortDates(dataTable);
+    console.log(sortedDates);
     return (
       <div className="wrapper">
         <div className="form-wrapper">
           <form className="myForm" onSubmit={this.handleForm}>
             <div className="input-wrapper">
-              <label for="date" className="form-label">
+              <label forHTML="date" className="form-label">
                 Дата (ДД.ММ.ГГ)
               </label>
               <input
@@ -71,7 +74,7 @@ export default class Input_form extends React.Component {
               />
             </div>
             <div className="input-wrapper">
-              <label for="distance" className="form-label">
+              <label forHTML="distance" className="form-label">
                 Пройдено км
               </label>
               <input

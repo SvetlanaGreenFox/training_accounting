@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Data_table(props) {
   const { data } = props;
-  console.log(props);
+
   return (
     <table className="inner-table">
       {data.map(({ id, date, distance }) => (
