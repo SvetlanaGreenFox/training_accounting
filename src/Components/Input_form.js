@@ -1,7 +1,7 @@
 import React from 'react';
 import Data_table from './Data_table.js';
 import _ from 'lodash';
-import { isValidDate, sortDates } from './utils.js';
+import { isValidDate, sortDates, checkItem } from './utils.js';
 
 export default class Input_form extends React.Component {
   constructor(props) {
@@ -33,11 +33,13 @@ export default class Input_form extends React.Component {
     e.preventDefault();
     const key = _.uniqueId();
     const { form, dataTable } = this.state;
+
     const item = {
       id: key,
       date: form.date,
       distance: form.distance,
     };
+
     this.setState({
       form: { date: '', distance: '' },
       dataTable: [...dataTable, item],
@@ -52,9 +54,9 @@ export default class Input_form extends React.Component {
 
   render() {
     const { form, dataTable } = this.state;
-    console.log(dataTable);
+
     const sortedDates = sortDates(dataTable);
-    console.log(sortedDates);
+
     return (
       <div className="wrapper">
         <div className="form-wrapper">
@@ -64,7 +66,7 @@ export default class Input_form extends React.Component {
                 Дата (ДД.ММ.ГГ)
               </label>
               <input
-                type="text"
+                type="date"
                 name="date"
                 className="form-control"
                 id="date"
@@ -78,7 +80,7 @@ export default class Input_form extends React.Component {
                 Пройдено км
               </label>
               <input
-                type="text"
+                type="number"
                 name="distance"
                 className="form-control"
                 id="distance"
