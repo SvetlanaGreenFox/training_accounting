@@ -1,7 +1,7 @@
 import React from 'react';
 import Data_table from './Data_table.js';
 import _ from 'lodash';
-import { isValidDate, sortDates, checkItem } from './utils.js';
+import { sortDates } from './utils.js';
 
 export default class Input_form extends React.Component {
   constructor(props) {
@@ -34,29 +34,34 @@ export default class Input_form extends React.Component {
     const key = _.uniqueId();
     const { form, dataTable } = this.state;
 
+    const d = dataTable.findIndex((elem) => elem.date === form.date);
+
     const item = {
       id: key,
       date: form.date,
-      distance: form.distance,
+      distance:
+        d === -1 ? form.distance : +form.distance + +dataTable[d].distance,
     };
 
     this.setState({
       form: { date: '', distance: '' },
-      dataTable: [...dataTable, item],
+      dataTable: [...dataTable.filter((elem) => elem.date !== form.date), item],
     });
   };
 
   handleFormRow = ({ target }) => {
     const value = target.value;
     const { form } = this.state;
-    this.setState({ form: { ...form, [target.name]: value } });
+    this.setState({
+      form: { ...form, [target.name]: value },
+    });
   };
 
   render() {
     const { form, dataTable } = this.state;
 
     const sortedDates = sortDates(dataTable);
-
+    console.log(dataTable);
     return (
       <div className="wrapper">
         <div className="form-wrapper">

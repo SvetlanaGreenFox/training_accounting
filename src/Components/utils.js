@@ -8,11 +8,3 @@ export function sortDates(array) {
     });
   }
 }
-
-export function checkItem(item, data) {
-  const checkItem = data.find((elem) => item.date === elem.date);
-  const id = checkItem.id;
-  if (checkItem !== undefined) {
-    return id;
-  }
-}
